@@ -8,11 +8,11 @@ public class LaboratorioJava {
         String propietario = null;
         boolean cargando = true;
 
-        System.out.println("=== TELÉFONO ===");
+        System.out.println("=== TELEFONO ===");
         System.out.println("Modelo: " + modelo);
-        System.out.println("Batería: " + bateria + "%");
+        System.out.println("Bateria: " + bateria + "%");
         System.out.println("Estado: " + obtenerEstadoBateria(bateria));
-        System.out.println("Ahorro de energía: " + ahorroEnergia);
+        System.out.println("Ahorro de energia: " + ahorroEnergia);
 
         if (propietario == null) {
             System.out.println("Propietario: Sin propietario");
@@ -21,17 +21,17 @@ public class LaboratorioJava {
         }
 
         if (cargando) {
-            System.out.println("El teléfono está conectado al cargador");
+            System.out.println("El telefono esta conectado al cargador");
         }
     }
 
     public static String obtenerEstadoBateria(int bateria) {
         if (bateria < 20) {
-            return "Batería baja";
+            return "Bateria baja";
         } else if (bateria < 80) {
-            return "Batería suficiente";
+            return "Bateria suficiente";
         } else {
-            return "Batería alta";
+            return "Bateria alta";
         }
     }
 }

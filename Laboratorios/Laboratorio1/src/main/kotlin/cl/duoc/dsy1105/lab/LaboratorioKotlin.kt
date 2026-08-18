@@ -1,4 +1,3 @@
-
 package cl.duoc.dsy1105.lab
 
 fun main() {
@@ -8,24 +7,24 @@ fun main() {
     val propietario: String? = null
     val cargando = true
 
-    println("=== TELÉFONO ===")
+    println("=== TELEFONO ===")
     println("Modelo: $modelo")
-    println("Batería: $bateria%")
+    println("Bateria: $bateria%")
     println("Estado: ${obtenerEstadoBateria(bateria)}")
-    println("Ahorro de energía: $ahorroEnergia")
+    println("Ahorro de energia: $ahorroEnergia")
     println("Propietario: ${propietario ?: "Sin propietario"}")
 
     if (cargando) {
-        println("El teléfono está conectado al cargador")
+        println("El telefono esta conectado al cargador")
     }
 }
 
 fun obtenerEstadoBateria(bateria: Int): String {
     return if (bateria < 20) {
-        "Batería baja"
+        "Bateria baja"
     } else if (bateria < 80) {
-        "Batería suficiente"
+        "Bateria suficiente"
     } else {
-        "Batería alta"
+        "Bateria alta"
     }
 }

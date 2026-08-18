@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Ejecutar Java" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="cl.duoc.dsy1105.lab.LaboratorioJava" />
+    <module name="Laboratorio1" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
