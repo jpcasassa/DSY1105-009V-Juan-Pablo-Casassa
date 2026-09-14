@@ -74,31 +74,52 @@ fun main () {
     val veterinaria = Veterinaria()
 
     println("Cantidad de boxes: ${veterinaria.boxes.size}")
+    
+    var opcion = 0
 
-    val boxAsignado = veterinaria.asignarBox(paciente1)
+    while (opcion != 4) {
+        println()
+        println("**** MENU PETCARE ****")
+        println("1. Mostrar cantidad de boxes")
+        println("2. Asignar paciente")
+        println("3. Liberar box")
+        println("4. Salir")
+        print("Seleccione una opcion: ")
 
-    if (boxAsignado != null) {
-        println("Box asignado: ${boxAsignado.numero}")
-        println("Paciente asignado: ${boxAsignado.paciente?.nombre}")
-        println("Nuevo estado: ${boxAsignado.estado}")
-    } else {
-        println("No hay boxes disponibles")
+        opcion = readLine()!!.toInt()
+
+        if (opcion == 1) {
+            println("Cantidad de boxes: ${veterinaria.boxes.size}")
+        }
+
+        if (opcion == 2) {
+            val boxAsignadoMenu = veterinaria.asignarBox(paciente1)
+
+            if (boxAsignadoMenu != null) {
+                println("Box asignado: ${boxAsignadoMenu.numero}")
+                println("Paciente asignado: ${boxAsignadoMenu.paciente?.nombre}")
+                println("Estado del box: ${boxAsignadoMenu.estado}")
+            } else {
+                println("No hay boxes disponibles")
+            }
+        }
+
+        if (opcion == 3) {
+            println("Ingrese el numero del box que desea liberar: ")
+
+            val numeroBox = readLine()!!.toInt()
+
+            val boxLiberadoMenu = veterinaria.liberarBox(numeroBox)
+
+            if (boxLiberadoMenu) {
+                println("El box $numeroBox fue liberado correctamente")
+            } else {
+                println("No se encontro el box $numeroBox")
+            }
+        }
+
+        if (opcion == 4) {
+            println("Saliendo del sistema...")
+        }
     }
-
-    val boxLiberado = veterinaria.liberarBox(1)
-
-    if (boxLiberado) {
-        println("El box 1 fue liberado correctamente")
-    } else {
-        println("No se encontro el box 1")
-    }
-
-    val nuevoBoxLibre = veterinaria.buscarBoxLibre()
-
-    if(nuevoBoxLibre != null) {
-        println("El primer box libre ahora es el numero ${nuevoBoxLibre.numero}")
-    } else {
-        println("No hay boxes libres")
-    }
-
 }
