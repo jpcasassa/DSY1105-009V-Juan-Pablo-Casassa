@@ -4,6 +4,7 @@ import modelos.TipoDueno
 import modelos.Tarifa
 import modelos.Box
 import modelos.EstadoBox
+import modelos.Veterinaria
 
 
 fun main () {
@@ -77,9 +78,19 @@ fun main () {
     println("Box: ${box1.numero}")
     println("Estado inicial: ${box1.estado}")
 
-    box1.estado = EstadoBox.EN_PROCESSOR
+    box1.estado = EstadoBox.EN_PROCESO
 
     println("Estado actualizado: ${box1.estado}")
 
+    val veterinaria = Veterinaria()
 
+    println("Cantidad de boxes: ${veterinaria.boxes.size}")
+
+    val boxLibre = veterinaria.buscarBoxLibre()
+
+    if (boxLibre != null) {
+        println("El primer box libre es el número ${boxLibre.numero}")
+    } else {
+        println("No hay boxes libres")
+    }
 }
