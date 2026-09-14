@@ -2,6 +2,9 @@ import modelos.Paciente
 import modelos.TipoPaciente
 import modelos.TipoDueno
 import modelos.Tarifa
+import modelos.Box
+import modelos.EstadoBox
+
 
 fun main () {
     println("Sistema de gestion veterinaria PetCare")
@@ -68,5 +71,15 @@ fun main () {
     val costoExotico = tarifaExotico.calcularCosto(paciente3, 60)
 
     println("Costo de exótico por 60 minutos: $$costoExotico")
+
+    val box1 = Box(numero = 1)
+
+    println("Box: ${box1.numero}")
+    println("Estado inicial: ${box1.estado}")
+
+    box1.estado = EstadoBox.EN_PROCESSOR
+
+    println("Estado actualizado: ${box1.estado}")
+
 
 }
