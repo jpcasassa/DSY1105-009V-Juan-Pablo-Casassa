@@ -2,8 +2,6 @@ import modelos.Paciente
 import modelos.TipoPaciente
 import modelos.TipoDueno
 import modelos.Tarifa
-import modelos.Box
-import modelos.EstadoBox
 import modelos.Veterinaria
 
 
@@ -73,24 +71,34 @@ fun main () {
 
     println("Costo de exótico por 60 minutos: $$costoExotico")
 
-    val box1 = Box(numero = 1)
-
-    println("Box: ${box1.numero}")
-    println("Estado inicial: ${box1.estado}")
-
-    box1.estado = EstadoBox.EN_PROCESO
-
-    println("Estado actualizado: ${box1.estado}")
-
     val veterinaria = Veterinaria()
 
     println("Cantidad de boxes: ${veterinaria.boxes.size}")
 
-    val boxLibre = veterinaria.buscarBoxLibre()
+    val boxAsignado = veterinaria.asignarBox(paciente1)
 
-    if (boxLibre != null) {
-        println("El primer box libre es el número ${boxLibre.numero}")
+    if (boxAsignado != null) {
+        println("Box asignado: ${boxAsignado.numero}")
+        println("Paciente asignado: ${boxAsignado.paciente?.nombre}")
+        println("Nuevo estado: ${boxAsignado.estado}")
+    } else {
+        println("No hay boxes disponibles")
+    }
+
+    val boxLiberado = veterinaria.liberarBox(1)
+
+    if (boxLiberado) {
+        println("El box 1 fue liberado correctamente")
+    } else {
+        println("No se encontro el box 1")
+    }
+
+    val nuevoBoxLibre = veterinaria.buscarBoxLibre()
+
+    if(nuevoBoxLibre != null) {
+        println("El primer box libre ahora es el numero ${nuevoBoxLibre.numero}")
     } else {
         println("No hay boxes libres")
     }
+
 }
