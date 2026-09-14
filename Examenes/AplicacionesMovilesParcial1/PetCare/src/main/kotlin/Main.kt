@@ -1,7 +1,6 @@
 import modelos.Paciente
 import modelos.TipoPaciente
 import modelos.TipoDueno
-import modelos.Tarifa
 import modelos.Veterinaria
 
 
@@ -32,79 +31,144 @@ fun main () {
         esSilvestre = true
     )
 
-    println("Nombre: ${paciente1.nombre}")
-    println("Edad: ${paciente1.edad}")
-    println("Codigo: ${paciente1.codigo}")
-    println("Tipo: ${paciente1.tipo}")
-    println("Dueno: ${paciente1.tipoDueno}")
-
-    val tarifaCanino = Tarifa(
-        tipoPaciente = TipoPaciente.CANINO,
-        montoPorHora = 12000
-    )
-    val tarifaFelino = Tarifa(
-        tipoPaciente = TipoPaciente.FELINO,
-        montoPorHora = 9000
-    )
-    val tarifaExotico = Tarifa(
-        tipoPaciente = TipoPaciente.EXOTICO,
-        montoPorHora = 20000
-    )
-
-    println("Tarifa canino: $${tarifaCanino.montoPorHora} por hora")
-    println("Tarifa felino: $${tarifaFelino.montoPorHora} por hora")
-    println("Tarifa exótico: $${tarifaExotico.montoPorHora} por hora")
-
-    val costo = tarifaCanino.calcularCosto(paciente1,60)
-
-    println("Costo de atención: $$costo")
-
-    val costoMediaHora = tarifaCanino.calcularCosto(paciente1, 30)
-
-    println("Costo de 30 minutos: $$costoMediaHora")
-
-    val costoFelino = tarifaFelino.calcularCosto(paciente2, 15)
-
-    println("Costo de felino por 15 minutos: $$costoFelino")
-
-    val costoExotico = tarifaExotico.calcularCosto(paciente3, 60)
-
-    println("Costo de exótico por 60 minutos: $$costoExotico")
-
     val veterinaria = Veterinaria()
 
-    println("Cantidad de boxes: ${veterinaria.boxes.size}")
-    
+    val pacientes = mutableListOf<Paciente>()
+
+    pacientes.add(paciente1)
+    pacientes.add(paciente2)
+    pacientes.add(paciente3)
+
     var opcion = 0
 
-    while (opcion != 4) {
+    while (opcion != 5) {
         println()
         println("**** MENU PETCARE ****")
-        println("1. Mostrar cantidad de boxes")
-        println("2. Asignar paciente")
-        println("3. Liberar box")
-        println("4. Salir")
+        println("1. Mostrar Estado de los boxes")
+        println("2. Registrar paciente")
+        println("3. Asignar paciente")
+        println("4. Liberar box")
+        println("5. Salir")
         print("Seleccione una opcion: ")
 
         opcion = readLine()!!.toInt()
 
         if (opcion == 1) {
-            println("Cantidad de boxes: ${veterinaria.boxes.size}")
+            for (box in veterinaria.boxes) {
+                println("Box ${box.numero} - Estado: ${box.estado}")
+            }
         }
 
         if (opcion == 2) {
-            val boxAsignadoMenu = veterinaria.asignarBox(paciente1)
+            println("Ingrese el nombre del paciente: ")
+            val nombre = readLine()!!
 
-            if (boxAsignadoMenu != null) {
-                println("Box asignado: ${boxAsignadoMenu.numero}")
-                println("Paciente asignado: ${boxAsignadoMenu.paciente?.nombre}")
-                println("Estado del box: ${boxAsignadoMenu.estado}")
+            println("Ingrese la edad del paciente: ")
+            val edad = readLine()!!.toInt()
+
+            println("Ingrese el codigo del paciente: ")
+            val codigo = readLine()!!
+
+            println("Seleccione el tipo de paciente: ")
+            println("1. Canino")
+            println("2. Felino")
+            println("3. Exotico")
+
+            val opcionTipo = readLine()!!.toInt()
+
+            var tipoSeleccionado: TipoPaciente? = null
+
+            if (opcionTipo == 1) {
+                tipoSeleccionado = TipoPaciente.CANINO
+            }
+
+            if (opcionTipo == 2) {
+                tipoSeleccionado = TipoPaciente.FELINO
+            }
+
+            if (opcionTipo == 3) {
+                tipoSeleccionado = TipoPaciente.EXOTICO
+            }
+
+            println("Selecciona el tipo de dueño: ")
+            println("1. Particular")
+            println("2. Convenio")
+            println("3. Municipal")
+
+            val opcionDueno = readLine()!!.toInt()
+
+            var tipoDuenoSeleccionado: TipoDueno? = null
+
+            if (opcionDueno == 1) {
+                tipoDuenoSeleccionado = TipoDueno.PARTICULAR
+            }
+
+            if (opcionDueno == 2) {
+                tipoDuenoSeleccionado = TipoDueno.CONVENIO
+            }
+
+            if (opcionDueno == 3) {
+                tipoDuenoSeleccionado = TipoDueno.MUNICIPAL
+            }
+            if (tipoSeleccionado != null && tipoDuenoSeleccionado != null) {
+                val nuevoPaciente = Paciente(
+                    nombre = nombre,
+                    edad = edad,
+                    codigo = codigo,
+                    tipo = tipoSeleccionado,
+                    tipoDueno = tipoDuenoSeleccionado
+                )
+
+                pacientes.add(nuevoPaciente)
+
+                println("Paciente registrado correctamente")
             } else {
-                println("No hay boxes disponibles")
+                println("Tipo de paciente o tipo de dueño no valido")
             }
         }
 
         if (opcion == 3) {
+            println("Seleccione el paciente:")
+
+            var numeroPaciente = 1
+
+            for (paciente in pacientes) {
+                println("$numeroPaciente. ${paciente.nombre}")
+                numeroPaciente = numeroPaciente + 1
+            }
+
+            print("Ingrese una opcion: ")
+
+            val opcionPaciente = readLine()!!.toInt()
+
+            var pacienteSeleccionado: Paciente? = null
+
+            var posicion = 1
+
+            for (paciente in pacientes) {
+                if (opcionPaciente == posicion) {
+                    pacienteSeleccionado = paciente
+                }
+
+                posicion = posicion + 1
+            }
+
+            if (pacienteSeleccionado != null) {
+                val boxAsignadoMenu = veterinaria.asignarBox(pacienteSeleccionado)
+
+                if (boxAsignadoMenu != null) {
+                    println("Box asignado: ${boxAsignadoMenu.numero}")
+                    println("Paciente asignado: ${boxAsignadoMenu.paciente?.nombre}")
+                    println("Estado del box: ${boxAsignadoMenu.estado}")
+                } else {
+                    println("No hay boxes disponibles")
+                }
+            } else {
+                println("Opcion de paciente no valida")
+            }
+        }
+
+        if (opcion == 4) {
             println("Ingrese el numero del box que desea liberar: ")
 
             val numeroBox = readLine()!!.toInt()
@@ -118,7 +182,7 @@ fun main () {
             }
         }
 
-        if (opcion == 4) {
+        if (opcion == 5) {
             println("Saliendo del sistema...")
         }
     }
